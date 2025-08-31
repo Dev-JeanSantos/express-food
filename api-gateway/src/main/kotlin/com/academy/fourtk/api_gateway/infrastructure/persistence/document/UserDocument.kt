@@ -21,7 +21,7 @@ data class UserDocument(
 
     companion object {
         fun fromDomain(user: User): UserDocument = UserDocument(
-            id = user.id,
+            id = if (user.id.isBlank()) null else user.id,
             email = user.email,
             password = user.password,
             role = user.role

@@ -14,6 +14,10 @@ class CreateUserUseCase(
 ) : CreateUserPort {
 
     override fun execute(request: UserRequest): UserResponse {
+
+        if (userRepositoryPort.existsByEmail(request.email)) {
+            throw IllegalArgumentException("Email já cadastrado")
+        }
         val user = User(
             id = UUID.randomUUID().toString(),
             email = request.email,

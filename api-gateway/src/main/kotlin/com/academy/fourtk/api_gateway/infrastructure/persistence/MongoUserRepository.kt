@@ -11,13 +11,11 @@ class MongoUserRepository(
     private val springDataRepo: SpringUserMongoRepository
 ) : UserRepositoryPort {
 
-    override fun findByEmail(email: String): User? {
-        // MOCK - em produção, use MongoRepository
-        if (email == "jean@fastfood.com") {
-            return User("user123", email, "123456", "CLIENT")
-        }
-        return null
-    }
+    override fun findByEmail(email: String): User? =
+        springDataRepo.findByEmail(email)?.toDomain()
+
+    override fun existsByEmail(email: String): Boolean =
+        springDataRepo.existsByEmail(email)
 
     override fun save(user: User): User {
         val saved = springDataRepo.save(UserDocument.fromDomain(user))

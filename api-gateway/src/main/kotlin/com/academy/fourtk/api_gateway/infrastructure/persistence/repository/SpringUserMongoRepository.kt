@@ -5,4 +5,5 @@ import org.springframework.data.mongodb.repository.MongoRepository
 
 interface SpringUserMongoRepository : MongoRepository<UserDocument, String> {
     fun findByEmail(email: String): UserDocument?
+    fun existsByEmail(email: String): Boolean
 }
