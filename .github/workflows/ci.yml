@@ -21,15 +21,16 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
-
+          
       - name: Grant execute permission for gradlew
         run:  chmod +x api-gateway/gradlew
 
       - name: Build with Gradle
-        run: ./gradlew clean build
+        run: ./api-gateway/gradlew clean build
 
       - name: Run KtLint checks
-        run: ./gradlew ktlintCheck
+        run: ./api-gateway/gradlew ktlintCheck
 
       - name: Run tests
-        run: ./gradlew test
+        run: ./api-gateway/gradlew test
+t
