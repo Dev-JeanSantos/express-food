@@ -9,11 +9,10 @@ import java.util.*
 @Service
 class JwtService {
 
-
     private val secretKey = Keys.hmacShaKeyFor("mysecretkeymysecretkeymysecretkey".toByteArray())
     private val validity = 3600000
 
-    fun validateTokenAndExtractUser(token: String): String {
+    fun validateTokenAndExtractUser(token: String): CustomUserDetails {
         try {
             val claims = Jwts.parserBuilder()
                 .setSigningKey(secretKey)
@@ -21,9 +20,13 @@ class JwtService {
                 .parseClaimsJws(token)
                 .body
 
-            return claims.subject // normalmente o "userId"
+            val email = claims.subject
+            val role = claims["role"] as String
+
+            return CustomUserDetails(email = email, role = role)
+
         } catch (e: Exception) {
-            throw RuntimeException("Token inválido ou expirado")
+            throw RuntimeException("Token inválido ou expirado: ${e.message}")
         }
     }
 }

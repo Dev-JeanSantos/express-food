@@ -4,4 +4,5 @@ import com.academy.fourtk.api_gateway.domain.model.User
 
 interface UserRepositoryPort {
     fun findByEmail(email: String): User?
+    fun save(user: User): User
 }
