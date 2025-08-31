@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component
 class MongoUserRepository(
     private val springDataRepo: SpringUserMongoRepository
 ) : UserRepositoryPort {
-
     override fun findByEmail(email: String): User? =
         springDataRepo.findByEmail(email)?.toDomain()
 
