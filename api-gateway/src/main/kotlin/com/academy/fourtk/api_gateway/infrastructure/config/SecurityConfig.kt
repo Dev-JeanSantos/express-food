@@ -23,7 +23,12 @@ class SecurityConfig(
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeHttpRequests()
-            .requestMatchers("/auth/**").permitAll()
+            .requestMatchers(
+                "/auth/login",
+                "/actuator/health",
+                "/actuator/metrics",
+                "/actuator/prometheus"
+            ).permitAll()
             .anyRequest().authenticated()
             .and()
             .addFilterBefore(

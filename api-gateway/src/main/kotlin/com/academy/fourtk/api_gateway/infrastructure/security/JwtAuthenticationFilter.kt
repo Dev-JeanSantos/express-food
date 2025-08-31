@@ -11,6 +11,18 @@ class JwtAuthenticationFilter(
     private val jwtService: JwtService
 ) : OncePerRequestFilter() {
 
+    private val excludedPaths = listOf(
+        "/auth/login",
+        "/actuator/health",
+        "/actuator/metrics",
+        "/actuator/prometheus"
+    )
+
+    override fun shouldNotFilter(request: HttpServletRequest): Boolean {
+        val path = request.servletPath
+        return excludedPaths.any { path.startsWith(it) }
+    }
+
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -34,3 +46,4 @@ class JwtAuthenticationFilter(
         filterChain.doFilter(request, response)
     }
 }
+
