@@ -26,10 +26,16 @@ jobs:
         run:  chmod +x api-gateway/gradlew
 
       - name: Build with Gradle
-        run: ./api-gateway/gradlew clean build
+        run: |
+          cd backend/api-gateway
+          ./gradlew clean build
 
       - name: Run KtLint checks
-        run: ./api-gateway/gradlew ktlintCheck
+        run: |
+          cd backend/api-gateway
+          ./gradlew ktlintCheck
 
       - name: Run tests
-        run: ./api-gateway/gradlew test
+        run: |
+          cd backend/api-gateway
+          ./gradlew gradlew test
