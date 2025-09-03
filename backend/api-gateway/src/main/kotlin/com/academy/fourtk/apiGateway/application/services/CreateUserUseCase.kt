@@ -1,5 +1,6 @@
 package com.academy.fourtk.apiGateway.application.services
 
+import com.academy.fourtk.apiGateway.application.exception.UserAlreadyExistsException
 import com.academy.fourtk.apiGateway.application.port.`in`.CreateUserPort
 import com.academy.fourtk.apiGateway.application.port.out.UserRepositoryPort
 import com.academy.fourtk.apiGateway.domain.model.User
@@ -15,7 +16,7 @@ class CreateUserUseCase(
 
     override fun execute(request: UserRequest): UserResponse {
         if (userRepositoryPort.existsByEmail(request.email)) {
-            throw IllegalArgumentException("Email já cadastrado")
+            throw UserAlreadyExistsException("Email already registered")
         }
         val user = User(
             id = UUID.randomUUID().toString(),

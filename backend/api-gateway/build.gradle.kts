@@ -38,6 +38,9 @@ dependencies {
     // MONGO
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
+    // VALIDATION
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
     testImplementation("de.flapdoodle.embed:de.flapdoodle.embed.mongo:4.10.2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
